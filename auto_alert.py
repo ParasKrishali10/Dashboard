@@ -240,6 +240,16 @@ def send_alert(loc, alerts):
 # ==========================================
 if __name__ == "__main__":
     print(f"🔍 Running hazard scan at {datetime.now()}")
+    print(f"TWILIO_SID present: {bool(os.environ.get('TWILIO_ACCOUNT_SID'))}")
+    print(f"TWILIO_TOKEN present: {bool(os.environ.get('TWILIO_AUTH_TOKEN'))}")
+    print(f"ALERT_TO present: {bool(os.environ.get('ALERT_TO_NUMBER'))}")
+    print(f"GEOAPIFY present: {bool(os.environ.get('GEOAPIFY_API_KEY'))}")
+
+    assets = load_models()
+    print(f"FF models loaded: {list(assets['FF'].keys())}")
+    print(f"CB models loaded: {list(assets['CB'].keys())}")
+    print(f"LS models loaded: {list(assets['LS'].keys())}")
+    print(f"Scaler loaded: {assets['scaler'] is not None}")
     assets = load_models()
 
     for loc in MONITOR_LOCATIONS:
