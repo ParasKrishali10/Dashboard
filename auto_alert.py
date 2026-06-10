@@ -85,6 +85,12 @@ def load_models():
 # RUN PREDICTION FOR ONE LOCATION
 # ==========================================
 def predict_location(loc, assets):
+    if loc["name"] == "Pauri Garhwal":
+        return [{
+            "hazard": "HEAVY RAINFALL",
+            "level": "ELEVATED",
+            "detail": "TEST ALERT - forced for verification"
+        }]
     weather = get_weather(loc["lat"], loc["lon"])
     if not weather:
         return []
@@ -165,7 +171,7 @@ def predict_location(loc, assets):
 
     if "Hybrid Ensemble" in assets["FF"]:
         pred = assets["FF"]["Hybrid Ensemble"].predict(ff_input)[0]
-        if pred >= 1:
+        if pred >= 2:
             alerts.append({
                 "hazard": "FOREST FIRE",
                 "level": "EXTREME" if pred == 3 else "HIGH",
