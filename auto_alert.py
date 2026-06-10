@@ -165,7 +165,7 @@ def predict_location(loc, assets):
 
     if "Hybrid Ensemble" in assets["FF"]:
         pred = assets["FF"]["Hybrid Ensemble"].predict(ff_input)[0]
-        if pred >= 2:
+        if pred >= 1:
             alerts.append({
                 "hazard": "FOREST FIRE",
                 "level": "EXTREME" if pred == 3 else "HIGH",
