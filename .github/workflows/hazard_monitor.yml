@@ -2,8 +2,8 @@ name: Hazard Monitor
 
 on:
   schedule:
-    - cron: '0 * * * *'   # runs every hour
-  workflow_dispatch:        # allows manual trigger
+    - cron: '0 * * * *'
+  workflow_dispatch:
 
 jobs:
   monitor:
@@ -12,6 +12,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v3
+      with:
+        ref: main          # ← forces latest main branch
 
     - name: Set up Python
       uses: actions/setup-python@v4
@@ -20,7 +22,11 @@ jobs:
 
     - name: Install dependencies
       run: |
-        pip install requests numpy pandas joblib twilio scikit-learn xgboost
+        pip install requests numpy pandas joblib twilio scikit-learn==1.5.1 xgboost
+
+    - name: Print file to verify
+      run: |
+        head -20 auto_alert.py    # ← prints first 20 lines so we can see what's running
 
     - name: Run hazard monitor
       env:
